@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack Data Structure</title>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color:  #282829;
+            text-align: center;
+                font-family: 'Nunito', sans-serif;
+                margin: 0;
+                padding: 0;
+                text-align: center;
+                background-image: url('dsa-bg.jpg');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                position: relative; /* Create a positioning context for the overlay */
+            
+            
+            
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9); /* Background color with opacity */
+            z-index: -1; /* Place the overlay behind the content */
+        }
+
+        header {
+            background-color:  #282829;
+            color: #fff;
+            padding: 10px;
+            font-size: 20px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        label {
+            font-size: 18px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            background-color: #282829;
+            color: #fff;
+        }
+
+        button:hover {
+            background-color: #282829;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            font-size: 18px;
+            margin-bottom: 5px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            transition: transform 0.3s ease; /* Add animation */
+        }
+
+        /* Style for the stack container */
+        .stack-container {
+            display: inline-block;
+            width: 200px;
+            height: 300px;
+            border: 2px solid  #282829;
+            background-color: #ecf0f1;
+            margin: 10px;
+            overflow-y: auto;
+        }
+
+        /* Style for the stack element */
+        .stack-element {
+            display: block;
+            text-align: center;
+            background-color:  #282829;
+            color: #fff;
+            padding: 5px;
+            margin: 5px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: transform 0.3s ease; /* Add animation */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Stack Data Structure</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Stack Operations</h2>
+            <label for="sizeInput">Enter Stack Size:</label>
+            <input type="number" id="sizeInput">
+            <button onclick="setStackSize()">Set Size</button>
+            <p id="stackSizeMessage"></p>
+            <label for="elementInput">Enter Stack Element:</label>
+            <input type="text" id="elementInput">
+            <button onclick="pushElement()">Push</button>
+            <button onclick="popElement()">Pop</button>
+            <button onclick="getTop()">Top of the Stack</button>
+        </section>
+        <section>
+            <h2>Stack</h2>
+            <div class="stack-container" id="stackContainer">
+                <!-- Stack elements will be displayed here -->
+            </div>
+        </section>
+    </main>
+    <script>
+        const stack = []; // Initialize an empty stack
+        let stackSize = null; // Initialize stack size
+
+        function setStackSize() {
+            const sizeInput = document.getElementById('sizeInput');
+            const newSize = parseInt(sizeInput.value);
+        
+            if (!isNaN(newSize) && newSize > 0) {
+                stackSize = newSize;
+                stack.length = 0; // Clear the stack
+                updateStackVisual();
+                sizeInput.value = ''; // Clear the input field
+            } else {
+                alert('Please enter a valid positive integer for the stack size.');
+            }
+        }
+        
+        function pushElement() {
+            if (stackSize === null) {
+                alert('Please set the stack size first.');
+                return;
+            }
+        
+            const elementInput = document.getElementById('elementInput');
+            const elementValue = elementInput.value;
+        
+            if (elementValue.trim() !== '') {
+                if (stack.length < stackSize) {
+                    stack.push(elementValue);
+                    updateStackVisual();
+                    elementInput.value = '';
+                } else {
+                    alert('Stack Overflow: The stack is full.');
+                }
+            }
+        }
+        
+        function popElement() {
+            if (stackSize === null) {
+                alert('Please set the stack size first.');
+                return;
+            }
+        
+            if (stack.length > 0) {
+                stack.pop();
+                updateStackVisual();
+            } else {
+                alert('Stack Underflow: The stack is empty.');
+            }
+        }
+        
+        function pushElement() {
+            const elementInput = document.getElementById('elementInput');
+            const elementValue = elementInput.value;
+
+            // Check if the input is not empty
+            if (elementValue.trim() !== '') {
+                stack.push(elementValue);
+                updateStackVisual();
+                elementInput.value = ''; // Clear the input field
+            }
+        }
+
+        function popElement() {
+            if (stack.length > 0) {
+                stack.pop();
+                updateStackVisual();
+            }
+        }
+
+        function getTop() {
+            if (stack.length > 0) {
+                alert(`Top of the Stack: ${stack[stack.length - 1]}`);
+            } else {
+                alert('The stack is empty.');
+            }
+        }
+        function pushElement() {
+            if (stackSize === null) {
+                alert('Please set the stack size first.');
+                return;
+            }
+        
+            if (stack.length < stackSize) {
+                const elementInput = document.getElementById('elementInput');
+                const elementValue = elementInput.value;
+        
+                if (elementValue.trim() !== '') {
+                    stack.push(elementValue);
+                    updateStackVisual();
+                    elementInput.value = '';
+                }
+            } else {
+                alert('Stack Overflow: The stack is full.');
+            }
+        }
+        function setStackSize() {
+            const sizeInput = document.getElementById('sizeInput');
+            const newSize = parseInt(sizeInput.value);
+        
+            if (!isNaN(newSize) && newSize > 0) {
+                stackSize = newSize;
+                stack.length = 0; // Clear the stack
+                updateStackVisual();
+                sizeInput.value = ''; // Clear the input field
+        
+                // Display a message confirming the stack size on the HTML page
+                const stackSizeMessage = document.getElementById('stackSizeMessage');
+                stackSizeMessage.textContent = `Size of Stack = ${newSize}.`;
+            } else {
+                alert('Please enter a valid positive integer for the stack size.');
+            }
+        }
+        function updateStackVisual() {
+            const stackContainer = document.getElementById('stackContainer');
+            stackContainer.innerHTML = ''; // Clear the stack container
+
+            // Populate the stack container with stack elements
+            for (let i = stack.length - 1; i >= 0; i--) {
+                const stackElement = document.createElement('div');
+                stackElement.className = 'stack-element';
+                stackElement.textContent = stack[i];
+                stackContainer.appendChild(stackElement);
+
+                // Add animation
+                setTimeout(() => {
+                    stackElement.style.transform = 'scale(1)';
+                }, i * 200);
+            }
+        }
+    </script>
+</body>
+</html>
